@@ -13,8 +13,8 @@ public class DiscountService
     public override async Task<CouponModel> GetDiscount(GetDiscountRequest request, ServerCallContext context)
     {
         var coupon = await dbContext
-            .Coupons
-            .FirstOrDefaultAsync(x => x.ProductName == request.ProductName);
+           .Coupons
+           .FirstOrDefaultAsync(x => x.ProductName == request.ProductName);
 
         if (coupon is null)
             coupon = new Coupon { ProductName = "No Discount", Amount = 0, Description = "No discount des" };
@@ -23,6 +23,7 @@ public class DiscountService
 
         var couponModel = coupon.Adapt<CouponModel>();
         return couponModel;
+
     }
 
     public override async Task<CouponModel> CreateDiscount(CreateDiscountRequest request, ServerCallContext context)
@@ -37,6 +38,7 @@ public class DiscountService
         logger.LogInformation("Discount is successfully created. ProductName: {ProductName}", coupon.ProductName);
         var couponModel = coupon.Adapt<CouponModel>();
         return couponModel;
+
     }
 
     public override async Task<CouponModel> UpdateDiscount(UpdateDiscountRequest request, ServerCallContext context)
